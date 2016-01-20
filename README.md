@@ -1,5 +1,16 @@
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
+## Install
+
+`npm install -g dot-density` for CLI or `npm install --save dot-density` for use as library.
+
+## CLI
+
+```
+cat someCensusData.geojson | dot-density --population POP10 --sampleRate 0.1
+```
+
+
 ## API
 
 ### FeaturePopulationCallback
@@ -7,8 +18,6 @@
 **Parameters**
 
 -   `feature` **Feature** A geojson feature
--   `data`  
--   `options`  
 
 Returns **Number** The feature's population
 
@@ -26,8 +35,9 @@ Produce dot density from population polygons
 **Examples**
 
 ```javascript
-var square = require('square')
-square(5)
+var dots = require('dot-density')
+var points = dots(featureCollection, { population: 'POP10' })
+console.log(points)
 ```
 
 Returns **FeatureCollection** A dot density FeatureCollection

@@ -3,12 +3,6 @@
 let random = require('./random')
 
 /**
- * @callback FeaturePopulationCallback
- * @param {Feature} feature A geojson feature
- * @return {Number} The feature's population
- */
-
-/**
  * Produce dot density from population polygons
  * @param {Feature|FeatureCollection} data - an input
  * @param {object} options
@@ -16,8 +10,9 @@ let random = require('./random')
  * @param {number} [options.sampleRate=1] Number of dots per person
  * @returns {FeatureCollection} A dot density FeatureCollection
  * @example
- * var square = require('square')
- * square(5)
+ * var dots = require('dot-density')
+ * var points = dots(featureCollection, { population: 'POP10' })
+ * console.log(points)
  */
 module.exports = function dotdensity (data, options) {
   let dots = []
@@ -40,4 +35,10 @@ module.exports = function dotdensity (data, options) {
 
   return dots.filter(Boolean)
 }
+
+/**
+ * @callback FeaturePopulationCallback
+ * @param {Feature} feature A geojson feature
+ * @return {Number} The feature's population
+ */
 
