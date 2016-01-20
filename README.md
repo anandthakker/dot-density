@@ -6,10 +6,7 @@
 
 ## CLI
 
-```
-cat someCensusData.geojson | dot-density --population POP10 --sampleRate 0.1
-```
-
+    cat someCensusData.geojson | dot-density --population POP10 --sampleRate 0.1
 
 ## API
 
