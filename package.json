@@ -1,6 +1,6 @@
 {
   "name": "dot-density",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Input population regions (geojson polygons), output dot-density (geojson points)",
   "main": "index.js",
   "bin": "bin.js",
