@@ -8,13 +8,15 @@ let random = require('./random')
  * @param {object} options
  * @param {String|FeaturePopulationCallback} options.population the property key or accessor function providing each feature's population.
  * @param {number} [options.sampleRate=1] Number of dots per person
+ * @param {boolean} [options.stochastic=false] If true, then use a weighted dice roll to decide wwhether to add a point when population * sampleRate yields a fractional value.
  * @returns {FeatureCollection} A dot density FeatureCollection
  * @example
  * var dots = require('dot-density')
  * var points = dots(featureCollection, { population: 'POP10' })
- * console.log(points)
+ * console.log(points) // array of Point features
  */
 module.exports = function dotdensity (data, options) {
+  data = data || {}
   let dots = []
   if (data.type === 'FeatureCollection') { data = data.features }
   if (Array.isArray(data)) {
@@ -25,7 +27,16 @@ module.exports = function dotdensity (data, options) {
     let pop = typeof options.population === 'function'
       ? options.population(data)
       : data.properties[options.population]
-    let count = Math.round(+pop * +(options.sampleRate || 1))
+
+    let count = +pop * +(options.sampleRate || 1)
+    if (options.stochastic) {
+      let frac = count - Math.floor(count)
+      count = Math.round(count)
+      if (Math.random() < frac) { count++ }
+    } else {
+      count = Math.round(count)
+    }
+
     while (count-- > 0) {
       dots.push(random(data))
     }

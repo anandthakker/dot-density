@@ -38,11 +38,40 @@ test('population accessor function', function (t) {
   t.end()
 })
 
+test('stochastic', function (t) {
+  let data = require('./fixtures/blocks.json').features[0]
+  data.properties.pop = 0.3
+
+  let trials = 1000
+  let points = 0
+  while (trials-- > 0) {
+    points += dots(data, { stochastic: true, population: 'pop' }).length
+  }
+
+  console.log('Got ' + points)
+
+  t.ok(points > 200)
+  t.ok(points < 400)
+
+  t.end()
+})
+
 test('from feature collection', function (t) {
   let data = require('./fixtures/blocks.json')
 
   let output = dots(data, { population: 'POP10' })
   t.ok(output.every(f => f.geometry.type === 'Point'), 'outputs Point geometries')
+  t.end()
+})
+
+test('error on bad input', function (t) {
+  let expected = new Error('Input data is not a Feature, array of Features, or FeatureCollection')
+  t.throws(function () {
+    dots({}, { population: 'POP10' })
+  }, expected)
+  t.throws(function () {
+    dots(null, {})
+  }, expected)
   t.end()
 })
 
