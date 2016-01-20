@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Input population regions (geojson polygons), output dot-density (geojson points)",
   "main": "index.js",
+  "bin": "bin.js",
   "scripts": {
     "retire": "retire -p",
     "lint": "eslint *.js test",
@@ -29,5 +30,10 @@
     "eslint-plugin-standard": "^1.3.1",
     "retire": "*",
     "tap": "^2.1.1"
+  },
+  "dependencies": {
+    "geojson-stream": "0.0.1",
+    "minimist": "^1.2.0",
+    "through2": "^2.0.0"
   }
 }

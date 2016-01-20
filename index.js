@@ -30,7 +30,7 @@ module.exports = function dotdensity (data, options) {
     let pop = typeof options.population === 'function'
       ? options.population(data)
       : data.properties[options.population]
-    let count = Math.round(+pop * (options.sampleRate || 1))
+    let count = Math.round(+pop * +(options.sampleRate || 1))
     while (count-- > 0) {
       dots.push(random(data))
     }
